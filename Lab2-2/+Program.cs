@@ -2,7 +2,7 @@
 using System.IO.Pipes;
 using System.Runtime.InteropServices;
 
-namespace Lab2_2
+namespace Lab2
 {
     internal class Program
     {
