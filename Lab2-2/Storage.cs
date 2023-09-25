@@ -8,7 +8,8 @@ namespace Lab2
 {
     static class Storage
     {
-        static public List<Product> Inventory()
+        //Creates the method inventory for access in the StoreFront Class.
+        public static List<Product> Inventory()
         {
             List<Product> products = new List<Product>();
             products.Add(new Product("Can of Beans", 23.50));
@@ -18,5 +19,7 @@ namespace Lab2
 
             return new List<Product>(products); // Returns a copy instead of the original list to hinder tampering, well in theory at least.
         }
+
+
     }
 }
