@@ -11,10 +11,14 @@ namespace Lab2_2
     {
         public static void Run()
         {
-            string dataRead = File.ReadAllText("data.txt");
-            Console.WriteLine("Data read from the file: " + dataRead);
-
             List<Customer> customers = new List<Customer>();
+            string readText = File.ReadAllText("CustomerList.txt");  // Read the contents of the file
+            Console.WriteLine(readText);  // Output the content
+            for (int i = 0; i < customers.Count; i++) 
+            {
+                customers.Add(customers[i]);
+            }
+            
 
             Customer knatte = new("Knatte", "123");
             Customer fnatte = new("Fnatte", "321");
@@ -72,18 +76,20 @@ namespace Lab2_2
                         else
                         {
                             Console.Clear();
-                            Console.WriteLine("Username is not registered.");
+                            Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
+
                         }
                         Console.ReadKey();
-                        Console.Clear();
+                        
                     }
                     else if (isNumber == 2/* User chooses to register */)
                     {
-                        Register(customers);
                         Console.Clear();
+                        Register(customers);
                     }
                     else if (isNumber == 3/* User chooses to quit */ )
                     {
+                        Console.Clear();
                         isLoopRunning = false;
                         Console.WriteLine("Thanks for visiting us!");
                     }
@@ -91,8 +97,8 @@ namespace Lab2_2
                 // Invalid choice, display an error message
                 else
                 {
-                    Console.WriteLine("Please enter a valid number.");
                     Console.Clear();
+                    Console.WriteLine("Please enter a valid number.");
                 }
             }
             

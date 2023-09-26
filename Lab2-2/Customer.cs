@@ -53,7 +53,7 @@ namespace Lab2
         // ToString method to display customer information
         public override string ToString()
         {
-            //Going to add a password clarification before clearing the cart.
+            
             // Customize this method to display customer information in a nice way
             foreach (Product product in _shoppingCart)
             {

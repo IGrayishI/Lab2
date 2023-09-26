@@ -22,7 +22,7 @@ namespace Lab2
                                 $"\n3. Go to checkout" +
                                 $"\n4. Quit");
 
-                //Calls Storage.Inventory to instansiate the products list in this class.
+                //Calls Storage.Inventory to instantiate the products list in this class.
                 string userInput = Console.ReadLine();
                 int.TryParse(userInput, out id);
 
@@ -43,6 +43,7 @@ namespace Lab2
             }
         }
 
+        //Menu where the user can add products to the cart
         public static void Shop(Customer user)
         {
             int id = 0;
