@@ -11,7 +11,8 @@ namespace Lab2
         //fields
         private string _name;
         private string _password;
-        
+        private List<Product> _shoppingCart;
+
         // Constructor to initialize Name, Password, and ShoppingCart
         public Customer(string name, string password)
         {
@@ -23,7 +24,7 @@ namespace Lab2
         //properties
         public string Name { get { return _name; } set { _name = value; } }
         public string Password { get { return _password; } set { _name = value; } }
-        private List<Product> _shoppingCart;
+        
 
 
         // Method to add a product to the shopping cart
@@ -40,7 +41,7 @@ namespace Lab2
             {
                 total += product.Price;
             }
-            return total;
+            return Math.Round(total, 2);
         }
 
         // Method to verify the password
@@ -52,8 +53,13 @@ namespace Lab2
         // ToString method to display customer information
         public override string ToString()
         {
+            //Going to add a password clarification before clearing the cart.
             // Customize this method to display customer information in a nice way
-            return $"Customer Name: {Name}\nTotal in Cart: {CalculateTotal():C}";
+            foreach (Product product in _shoppingCart)
+            {
+                Console.WriteLine(product.Name);
+            }
+            return $"Customer Name: {Name} \nTotal in Cart: {Math.Round(CalculateTotal(), 2):C}";
         }
 
         public void DisplayCart()
@@ -62,6 +68,7 @@ namespace Lab2
             {
                 Console.WriteLine(product);
             }
+            Console.ReadKey();
         }
     }
 }

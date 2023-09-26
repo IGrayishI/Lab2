@@ -19,7 +19,5 @@ namespace Lab2
 
             return new List<Product>(products); // Returns a copy instead of the original list to hinder tampering, well in theory at least.
         }
-
-
     }
 }
