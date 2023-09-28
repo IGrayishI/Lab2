@@ -15,8 +15,8 @@ namespace Lab2
 
         public Product(string name, double price)
         {
-            Name = name;
-            Price = price;
+            _name = name;
+            _price = price;
         }
     }
 }
