@@ -1,10 +1,12 @@
 ﻿using Lab2;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Lab2_2.Member;
 
 namespace Lab2_2
 {
@@ -37,7 +39,7 @@ namespace Lab2_2
             Member newCustomer = new Member(username, password, level );                     ////Kolla här senare
             customers.Add(newCustomer);
 
-            string dataToSave = "CustomerList.txt";
+            string dataToSave = "C:\\Users\\Benja\\source\\repos\\Lab2-2\\Lab2-2\\CustomerList.txt";
             File.AppendAllText(dataToSave, $"{username},{password},{level}\n");
         }
         
@@ -45,7 +47,7 @@ namespace Lab2_2
         public static void LoadFile(List<Member> customers)
         {
             // Read the contents of the file
-            string readText = File.ReadAllText("CustomerList.file");
+            string readText = File.ReadAllText("C:\\Users\\Benja\\source\\repos\\Lab2-2\\Lab2-2\\CustomerList.txt");
 
             //Split the text into lines
             string[] lines = readText.Split('\n');
@@ -58,7 +60,17 @@ namespace Lab2_2
                 if (parts.Length == 3)
                 {
                     // Create a new Customer object and add it to the list
-                    customers.Add(new Member(parts[0], parts[1], parts[3]));
+                    Member.Membership membership;
+                    if (Enum.TryParse(parts[2], out membership)) 
+                    {
+                    customers.Add(new Member(parts[0], parts[1], membership));
+                    }
+                    else
+                    {
+                        Console.WriteLine("Can not load savefile. Parse Error.");
+                        Console.ReadKey();
+                    }
+                    
                 }
             }
         }
@@ -72,6 +84,7 @@ namespace Lab2_2
             while (isLoopRunning)
             {
                 Console.Clear();
+
                 // Display the main menu with options for registration and login
                 Console.WriteLine("Welcome to the Super Simple Store.\nDo you want to Login or Register?\n1. Login\n2. Register \n3. Quit");
 
@@ -80,16 +93,18 @@ namespace Lab2_2
                 int isNumber = 0;
                 if (int.TryParse(userInput, out isNumber))
                 {
-                    if (isNumber == 1/* User chooses to login */)
+                    switch (isNumber)
                     {
-                        Console.Clear();
+                        case 1:
                         // Prompt for customer name and password
+                        Console.Clear();
                         Console.Write("Please enter your username: ");
                         username = Console.ReadLine();
 
                         // Find the customer in the customers list based on the name
-                        Member findUsername = customers.FirstOrDefault(Customer => Customer.Name == username);
+                        Member findUsername = customers.FirstOrDefault(Member => Member.Name == username);
 
+                        //if found.
                         if (findUsername != null)
                         {
                             Console.Clear();
@@ -100,36 +115,40 @@ namespace Lab2_2
                             if (findUsername.Password == password)
                             {
                                 Console.Clear();
-                                Lab2.Member user = new Lab2.Member(username, password);
+                                Member user = new Member(username, password, findUsername.Level);
                                 ShopMenu.Run(user);
                                 break;
-                            }
-                            else
+                            }else
                             {
                                 Console.Clear();
                                 Console.WriteLine("Password invalid.");
                                 break;
                             }
-                        }
-                        else // Ask the user if they would like to register.
+                        }else // Ask the user if they would like to register.
                         {
-                            Console.Clear();
-                            Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
+                        Console.Clear();
+                        Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
+                        userInput = Console.ReadLine();
+                                if (userInput == "y")
+                                {
+                                Register(customers);
+                                }
                         }
+                            break;
 
-                    }
-                    else if (isNumber == 2/* User chooses to register */)
-                    {
+                        case 2:
                         Console.Clear();
                         Register(customers);
-                    }
-                    else if (isNumber == 3/* User chooses to quit */ )
-                    {
+                            break;
+
+                        case 3:
                         Console.Clear();
                         isLoopRunning = false;
                         Console.WriteLine("Thanks for visiting us!");
+                            break;
                     }
                 }
+
                 // Invalid choice, display an error message
                 else
                 {
@@ -138,6 +157,5 @@ namespace Lab2_2
                 }
             }
         }
-
     }
 }

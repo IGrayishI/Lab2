@@ -1,0 +1,5 @@
+﻿Knatte,123,Bronze
+Tjatte,231,Silver
+Fnatte,213,Gold
+Ben,pass,Gold
+Emperor,bemba,Bronze

@@ -10,8 +10,6 @@ namespace Lab2
         static void Main(string[] args)
         {
             StartMenu.Run();
-
-            //Dont forget to change how the memebership level is set. If everyone is bronze then what is the point of having a level?..  
         }
     }
 }
