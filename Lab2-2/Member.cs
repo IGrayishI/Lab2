@@ -65,6 +65,7 @@ internal class Member : Lab2.Customer
                 totalCost += productPrice;
             }
 
+            //Writes out items one by one, and shows the number of items, the individual cost and the total for that item.
             Console.WriteLine("Items in your cart:");
 
             foreach (var kvp in itemCounts)
@@ -77,22 +78,29 @@ internal class Member : Lab2.Customer
                 Console.WriteLine("---------------------------");
             }
             
+            //Changes the currency based on input.
             totalCost = PaymentHelper.ChoiceOfCurrency(totalCost);
 
+            //Prints total cost and the sum with membership bonus.
             double discount = ((int)_level) / 100.0;
             double sumWithDiscount = totalCost - (totalCost * discount);
 
             Console.WriteLine($"Total cost: {Math.Round(totalCost, 2)}");
             Console.WriteLine($"Total cost with membership: {Math.Round(sumWithDiscount, 2)}");
-            Console.WriteLine("Press Enter to Continue.");
+
+            Console.WriteLine("\nPress Enter to Continue.");
             Console.ReadKey();
         }
 
+        //Calculates the sum total with discount.
         public override double CalculateTotal()
         {
             double totalCost = base.CalculateTotal();
+
             double discount = ((int)_level) / 100.0;
             double sumWithDiscount = totalCost - (totalCost * discount);
+
+            //Asks what currency to display sumtotal.
             sumWithDiscount = PaymentHelper.ChoiceOfCurrency(sumWithDiscount);
             return sumWithDiscount;
         }

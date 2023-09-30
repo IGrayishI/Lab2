@@ -17,6 +17,16 @@ namespace Lab2_2
             // Create a list to store Customer objects
             List<Member> customers = new List<Member>();
 
+            //Hard coded customers.
+            Member knatte = new Member("Knatte", "123", Member.Membership.Bronze);
+            Member tjatte = new Member("Tjatte", "231", Member.Membership.Silver);
+            Member fnatte = new Member("Fnatte", "213", Member.Membership.Gold);
+            customers.Add(knatte);
+            customers.Add(tjatte);
+            customers.Add(fnatte);
+            
+            
+
             StartMenu.LoadFile(customers);
 
             StartMenu.Menu(customers);
@@ -39,7 +49,7 @@ namespace Lab2_2
             Member newCustomer = new Member(username, password, level );                     ////Kolla här senare
             customers.Add(newCustomer);
 
-            string dataToSave = "C:\\Users\\Benja\\source\\repos\\Lab2-2\\Lab2-2\\CustomerList.txt";
+            string dataToSave = "CustomerList.txt";
             File.AppendAllText(dataToSave, $"{username},{password},{level}\n");
         }
         
@@ -70,7 +80,6 @@ namespace Lab2_2
                         Console.WriteLine("Can not load savefile. Parse Error.");
                         Console.ReadKey();
                     }
-                    
                 }
             }
         }
@@ -129,11 +138,15 @@ namespace Lab2_2
                         Console.Clear();
                         Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
                         userInput = Console.ReadLine();
+
+                                //If y then register 
                                 if (userInput == "y")
                                 {
-                                Register(customers);
+                                    Console.Clear();
+                                    Register(customers);
                                 }
                         }
+                            //End of case 1.
                             break;
 
                         case 2:

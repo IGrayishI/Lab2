@@ -17,7 +17,7 @@ namespace Lab2
         private string _password;
         private List<Product> _shoppingCart;
 
-        //Constructor to initialize Name, Password, and ShoppingCart
+        // Constructor to initialize Name, Password, and ShoppingCart
         public Customer(string name, string password)
         {
             _name = name;
@@ -42,13 +42,8 @@ namespace Lab2
             _shoppingCart.Clear();
             
         }
-        // Method to remove from cart. Not Implemented.
-        public void RemoveFromCart(Product product)
-        {
-            _shoppingCart.Remove(product);
-        }
 
-        // Method to calculate the sum total of items in the cart
+        // Method to calculate the sum total cost of items in the cart
         public virtual double CalculateTotal()
         {
             double total = 0;

@@ -10,6 +10,8 @@ namespace Lab2
         static void Main(string[] args)
         {
             StartMenu.Run();
+
+            //The original thought was to save the sum of each purchase in a double, and upgrade the users membership based on score. But, life got in the way.
         }
     }
 }

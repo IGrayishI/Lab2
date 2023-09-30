@@ -29,46 +29,56 @@ namespace Lab2
                 switch (id)
                 {
                     case 1:
+                        //Sends the user to the shop
                         ShopMenu.Shop(user);
                         break;
+                        //Displays the cart, and sum total.
                     case 2:
                         user.DisplayCart();
                         Console.Clear();
                         break;
-                        
+                        //Displays the checkout, clears the cart if correct password is input.
                     case 3:
                         Console.WriteLine($"The sum total is: {user.CalculateTotal()}");
-                        Console.Write("Please enter your password to confirm, or 1 to go back \nPassword: ");
+                        Console.Write("Please enter your password to confirm, or 1 to go back " +
+                                    "\nPassword: ");
                         
                         while (userInput != "1")
                         {
-
                             userInput = Console.ReadLine();
                             Console.Clear();
+
                             if (userInput == user.Password)
                             {
                                 Console.WriteLine("Thank you for your purchase.");
                                 user.ClearCart();
                                 Console.ReadKey();
                                 break;
-                            }
-                            else if (userInput == "1")
+
+                            }else if (userInput == "1")
                             {
                                 break;
-                            } 
-                            else
+
+                            }else
                             {
                                 Console.WriteLine("invalid password");
-                                Console.Write("Please enter your password to confirm, or 1 to go back \nPassword: ");
+                                Console.Write("Please enter your password to confirm, or 1 to go back " +
+                                            "\nPassword: ");
+
                             }
                         }
+                        //End of case 3.
                         break;
+
+                        //Displays the user information
                     case 4:
                         Console.WriteLine(user.ToString());
                         Console.WriteLine("Press enter to Continue.");
                         Console.ReadKey();
                         Console.Clear();
                         break;
+
+                        //Returns to StartMenu
                     case 5:
                         StartMenu.Run();
                         Console.Clear();
@@ -96,6 +106,7 @@ namespace Lab2
                 {
                     Console.WriteLine(i + 1 + ". " + products[i].Name + ": " + products[i].Price);
                 }
+
                 //Takes users input and trys if its a number.
                 string userInput = Console.ReadLine();
                 int.TryParse(userInput, out id);
