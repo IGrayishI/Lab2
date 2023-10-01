@@ -34,13 +34,11 @@ namespace Lab2
         public void AddToCart(Product product)
         {
             _shoppingCart.Add(product);
-            
         }
         // Method to clear cart of items (After checkout).
         public void ClearCart()
         {
             _shoppingCart.Clear();
-            
         }
 
         // Method to calculate the sum total cost of items in the cart
