@@ -52,8 +52,36 @@ namespace Lab2_2
                     Console.Write("Please enter your desired password: ");
                     string password = Console.ReadLine();
 
+                    Console.WriteLine("What level of memebership is desired? (I ran out of time to make it better.) " +
+                        "\n1. Bronze" +
+                        "\n2. Silver" +
+                        "\n3. Gold");
+                    string userInput = Console.ReadLine();
+                    Member.Membership level = Member.Membership.Bronze; ;
+                    ;
+                    if (int.TryParse(userInput, out int result))
+                    {
+                        switch (result)
+                        {
+                            case 1:
+                                level = Member.Membership.Bronze;
+                                break;
+                            case 2:
+                                level = Member.Membership.Silver;
+                                break;
+                            case 3:
+                                level = Member.Membership.Gold;
+                                break;
+                        }
+                    } else
+                    {
+                        Console.WriteLine("Bronze it is!");
+                        
+                    }
+                    
+
                     // Create a new customer object and add it to the customers list
-                    Member.Membership level = Member.Membership.Bronze;
+                    
                     Member newCustomer = new Member(username, password, level);
                     customers.Add(newCustomer);
 
@@ -69,7 +97,7 @@ namespace Lab2_2
                 }
                 else
                 {
-                    Console.Write("You have entered an already registred username. \nTo go back, enter 1 \nTo register, enter diferent username. ");
+                    Console.WriteLine("You have entered an already registred username. \nTo go back, enter 1 \nTo register, enter diferent username. ");
                     username = Console.ReadLine();
                     if (username == "1")
                     {
@@ -116,7 +144,8 @@ namespace Lab2_2
             }
             else
             {
-                Console.WriteLine("The file does not exist at the specified path.");
+                Console.WriteLine("The file does not exist at the specified path. \nPlease check the Load File path or check if 'CustomerList.txt' is in the 'bin\\Debug\\net7.0' directory");
+                Console.ReadKey();
             }
 
             
