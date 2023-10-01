@@ -111,11 +111,10 @@ namespace Lab2_2
         public static void LoadFile(List<Member> customers)
         {
             string filePath = "CustomerList.txt";
-            string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
 
-            if (File.Exists(fullPath))
+            if (File.Exists(filePath))
             {
-                string readText = File.ReadAllText(fullPath);
+                string readText = File.ReadAllText(filePath);
                 // Process the contents of the file
 
                 //Split the text into lines
@@ -144,7 +143,8 @@ namespace Lab2_2
             }
             else
             {
-                Console.WriteLine("The file does not exist at the specified path. \nPlease check the Load File path or check if 'CustomerList.txt' is in the 'bin\\Debug\\net7.0' directory");
+                File.Create("CustomerList.txt");
+                Console.WriteLine("The file does not exist at the specified path. \nCreating a new savefile.");
                 Console.ReadKey();
             }
 
