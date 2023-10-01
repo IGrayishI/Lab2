@@ -24,17 +24,22 @@ namespace Lab2_2
             customers.Add(knatte);
             customers.Add(tjatte);
             customers.Add(fnatte);
-            
-            
 
-            StartMenu.LoadFile(customers);
 
-            StartMenu.Menu(customers);
 
+
+            if (StartMenu.LoadFile(customers))
+            {
+                StartMenu.Menu(customers);
+            }
+            else
+            {
+                Console.WriteLine("Quiting application");
+            }
         }
 
         //----------------Methods---------------
-        
+
         //Register new customers and adding them to the save file.
         static void Register(List<Member> customers)
         {
@@ -74,15 +79,16 @@ namespace Lab2_2
                                 level = Member.Membership.Gold;
                                 break;
                         }
-                    } else
+                    }
+                    else
                     {
                         Console.WriteLine("Bronze it is!");
-                        
+
                     }
-                    
+
 
                     // Create a new customer object and add it to the customers list
-                    
+
                     Member newCustomer = new Member(username, password, level);
                     customers.Add(newCustomer);
 
@@ -143,16 +149,18 @@ namespace Lab2_2
                         }
                     }
                 }
-                //If it finds a savefile, it returns false
-                return false;
+                //If it finds a savefile, it returns true
+                return true;
             }
-            else
+            else //Creating a new savefile if non was found.
             {
                 File.Create("CustomerList.txt");
+
                 Console.WriteLine("The file does not exist at the specified path. \nCreating a new savefile. \nPlease restart the application. \nPress anykey to quit");
                 Console.ReadKey();
 
-                return true;
+                //If it dosnt find a savefile, return false.
+                return false;
             }
         }
 
@@ -177,39 +185,41 @@ namespace Lab2_2
                     switch (isNumber)
                     {
                         case 1:
-                        // Prompt for customer name and password
-                        Console.Clear();
-                        Console.Write("Please enter your username: ");
-                        username = Console.ReadLine();
-
-                        // Find the customer in the customers list based on the name
-                        Member findUsername = customers.FirstOrDefault(Member => Member.Name == username);
-
-                        //if found.
-                        if (findUsername != null)
-                        {
+                            // Prompt for customer name and password
                             Console.Clear();
-                            Console.Write("Please enter your password: ");
-                            string password = Console.ReadLine();
+                            Console.Write("Please enter your username: ");
+                            username = Console.ReadLine();
 
-                            // Verify the password
-                            if (findUsername.Password == password)
+                            // Find the customer in the customers list based on the name
+                            Member findUsername = customers.FirstOrDefault(Member => Member.Name == username);
+
+                            //if found.
+                            if (findUsername != null)
                             {
                                 Console.Clear();
-                                Member user = new Member(username, password, findUsername.Level);
-                                ShopMenu.Run(user);
-                                break;
-                            }else
-                            {
-                                Console.Clear();
-                                Console.WriteLine("Password invalid.");
-                                break;
+                                Console.Write("Please enter your password: ");
+                                string password = Console.ReadLine();
+
+                                // Verify the password
+                                if (findUsername.Password == password)
+                                {
+                                    Console.Clear();
+                                    Member user = new Member(username, password, findUsername.Level);
+                                    ShopMenu.Run(user);
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.Clear();
+                                    Console.WriteLine("Password invalid.");
+                                    break;
+                                }
                             }
-                        }else // Ask the user if they would like to register.
-                        {
-                        Console.Clear();
-                        Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
-                        userInput = Console.ReadLine();
+                            else // Ask the user if they would like to register.
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Username is not registered. \nWould you like to register? y/n");
+                                userInput = Console.ReadLine();
 
                                 //If y then register 
                                 if (userInput == "y")
@@ -217,19 +227,19 @@ namespace Lab2_2
                                     Console.Clear();
                                     Register(customers);
                                 }
-                        }
+                            }
                             //End of case 1.
                             break;
 
                         case 2:
-                        Console.Clear();
-                        Register(customers);
+                            Console.Clear();
+                            Register(customers);
                             break;
 
                         case 3:
-                        Console.Clear();
-                        isLoopRunning = false;
-                        Console.WriteLine("Thanks for visiting us!");
+                            Console.Clear();
+                            isLoopRunning = false;
+                            Console.WriteLine("Thanks for visiting us!");
                             break;
                     }
                 }
