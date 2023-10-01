@@ -107,9 +107,9 @@ namespace Lab2_2
                 }
             }
         }
-        
+
         //Loading the customers from the save file.
-        public static void LoadFile(List<Member> customers)
+        public static bool LoadFile(List<Member> customers)
         {
             string filePath = "CustomerList.txt";
 
@@ -133,23 +133,27 @@ namespace Lab2_2
                         if (Enum.TryParse(parts[2], out membership))
                         {
                             customers.Add(new Member(parts[0], parts[1], membership));
+
                         }
                         else
                         {
                             Console.WriteLine("Can not load savefile. Parse Error.");
+
                             Console.ReadKey();
                         }
                     }
                 }
+                //If it finds a savefile, it returns false
+                return false;
             }
             else
             {
                 File.Create("CustomerList.txt");
-                Console.WriteLine("The file does not exist at the specified path. \nCreating a new savefile.");
+                Console.WriteLine("The file does not exist at the specified path. \nCreating a new savefile. \nPlease restart the application. \nPress anykey to quit");
                 Console.ReadKey();
-            }
 
-            
+                return true;
+            }
         }
 
         //Start menu
