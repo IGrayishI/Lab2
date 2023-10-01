@@ -32,6 +32,7 @@ namespace Lab2_2
             StartMenu.Menu(customers);
 
         }
+
         //----------------Methods---------------
         
         //Register new customers and adding them to the save file.
