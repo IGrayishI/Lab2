@@ -25,6 +25,7 @@ namespace Lab2
                 
                 string userInput = Console.ReadLine();
                 int.TryParse(userInput, out id);
+
                 Console.Clear();
                 switch (id)
                 {
@@ -47,24 +48,21 @@ namespace Lab2
                         {
                             userInput = Console.ReadLine();
                             Console.Clear();
-
                             if (userInput == user.Password)
                             {
                                 Console.WriteLine("Thank you for your purchase.");
                                 user.ClearCart();
                                 Console.ReadKey();
                                 break;
-
-                            }else if (userInput == "1")
+                            }
+                            else if (userInput == "1")
                             {
                                 break;
-
                             }else
                             {
                                 Console.WriteLine("invalid password");
                                 Console.Write("Please enter your password to confirm, or 1 to go back " +
                                             "\nPassword: ");
-
                             }
                         }
                         //End of case 3.
@@ -80,7 +78,6 @@ namespace Lab2
 
                         //Returns to StartMenu
                     case 5:
-                        StartMenu.Run();
                         Console.Clear();
                         break;
                 }
@@ -90,12 +87,25 @@ namespace Lab2
         //Menu where the user can add products to the cart
         public static void Shop(Customer user)
         {
+            //Creates the method inventory to instantiate the items.
+            static List<Product> Inventory()
+            {
+                List<Product> products = new List<Product>();
+                products.Add(new Product("Can of Beans", 23.50));
+                products.Add(new Product("Olive Oil", 24.99));
+                products.Add(new Product("Paprika", 14.99));
+                products.Add(new Product("Garlic", 6));
+
+                return new List<Product>(products); // Returns a copy instead of the original list to hinder tampering, well in theory at least.
+                                                    // (This was in its own class before, but it seemed redundant)
+            }
+                //Calls Inventory to instantiate the products list in this class.
+                List<Product> products = Inventory();
+
             int id = 1;
             while (id != 0)
             {
                 Console.Clear();
-                //Calls Storage.Inventory to instantiate the products list in this class.
-                List<Product> products = Storage.Inventory();
 
                 
                 Console.WriteLine($"What do you want to buy? ");

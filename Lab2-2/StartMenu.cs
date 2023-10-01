@@ -41,47 +41,85 @@ namespace Lab2_2
             Console.Write("Please enter your desired username: ");
             string username = Console.ReadLine();
 
-            Console.Write("Please enter your desired password: ");
-            string password = Console.ReadLine();
+            bool IsRunning = true;
 
-            // Create a new customer object and add it to the customers list
-            Member.Membership level = Member.Membership.Bronze;
-            Member newCustomer = new Member(username, password, level );                     ////Kolla här senare
-            customers.Add(newCustomer);
+            while (IsRunning)
+            {
+                Member findUsername = customers.FirstOrDefault(Member => Member.Name == username);
 
-            string dataToSave = "CustomerList.txt";
-            File.AppendAllText(dataToSave, $"{username},{password},{level}\n");
+                if (findUsername == null)
+                {
+                    Console.Write("Please enter your desired password: ");
+                    string password = Console.ReadLine();
+
+                    // Create a new customer object and add it to the customers list
+                    Member.Membership level = Member.Membership.Bronze;
+                    Member newCustomer = new Member(username, password, level);
+                    customers.Add(newCustomer);
+
+                    //Saves a string of the file name, then looks for it in the current App base directory. The idea is to make it useable on other computers
+                    string fileName = "CustomerList.txt";
+                    string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+
+                    string dataToSave = $"{username},{password},{level}\n";
+
+                    File.AppendAllText(filePath, dataToSave);
+
+                    IsRunning = false;
+                }
+                else
+                {
+                    Console.Write("You have entered an already registred username. \nTo go back, enter 1 \nTo register, enter diferent username. ");
+                    username = Console.ReadLine();
+                    if (username == "1")
+                    {
+                        break;
+                    }
+                }
+            }
         }
         
         //Loading the customers from the save file.
         public static void LoadFile(List<Member> customers)
         {
-            // Read the contents of the file
-            string readText = File.ReadAllText("C:\\Users\\Benja\\source\\repos\\Lab2-2\\Lab2-2\\CustomerList.txt");
+            string filePath = "CustomerList.txt";
+            string fullPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, filePath);
 
-            //Split the text into lines
-            string[] lines = readText.Split('\n');
-
-            foreach (string line in lines)
+            if (File.Exists(fullPath))
             {
-                // Split each line into username and password (assuming they are separated by a space)
-                string[] parts = line.Trim().Split(",");
+                string readText = File.ReadAllText(fullPath);
+                // Process the contents of the file
 
-                if (parts.Length == 3)
+                //Split the text into lines
+                string[] lines = readText.Split('\n');
+
+                foreach (string line in lines)
                 {
-                    // Create a new Customer object and add it to the list
-                    Member.Membership membership;
-                    if (Enum.TryParse(parts[2], out membership)) 
+                    // Split each line into username and password (assuming they are separated by a space)
+                    string[] parts = line.Trim().Split(",");
+
+                    if (parts.Length == 3)
                     {
-                    customers.Add(new Member(parts[0], parts[1], membership));
-                    }
-                    else
-                    {
-                        Console.WriteLine("Can not load savefile. Parse Error.");
-                        Console.ReadKey();
+                        // Create a new Customer object and add it to the list
+                        Member.Membership membership;
+                        if (Enum.TryParse(parts[2], out membership))
+                        {
+                            customers.Add(new Member(parts[0], parts[1], membership));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Can not load savefile. Parse Error.");
+                            Console.ReadKey();
+                        }
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("The file does not exist at the specified path.");
+            }
+
+            
         }
 
         //Start menu
